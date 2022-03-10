@@ -24,10 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-
-        $schedule->command('employee:leaves')->monthly();
-
-        $schedule->command('employee:total_leaves')->everyMinute();
+        // $schedule->command('inspire')->hourly();
     }
 
     /**

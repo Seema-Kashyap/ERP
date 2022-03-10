@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role_id', 'address', 'phone_number', 'department', 'image', 'education', 'description', 'gender'
     ];
 
     /**
@@ -37,8 +37,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function permissions()
+    public function role()
     {
-        return $this->belongsToMany(Permission::class, 'permission_role','user_id','permission_id');
+        return $this->hasOne('App\Role', 'id', 'role_id');
+    }
+    public function userAvatar($request)
+    {
+        $image = $request->file('image');
+        $name = $image->hashName();
+        $destination = public_path('/images');
+        $image->move($destination, $name);
+        return $name;
     }
 }
